@@ -1,99 +1,46 @@
 import { test, expect } from '@playwright/test';
 
 test('fill the form 84.48', async ({ page }) => {
+
+    // *-------------------------------------------------------------------* //
+    // ENTRNAOD A LA PAGINA DEL FORMULARIO Y LLENANDO LA PRIMERA PAERTE
     await page.goto('https://168.176.84.48/sitio/accederServicio/acceder.action?periodo=105&servicio=357');
+
+    // # Seleccion del radio select
     await page.getByLabel('', { exact: true }).check();
+
+    // # Eleguir tipo de documento
     await page.getByLabel('Tipo\n\t\t\t\t\t\tde documento*').selectOption('1');
+
+    // # Llenar el documento
     await page.getByLabel('Documento*', { exact: true }).click();
     await page.getByLabel('Documento*', { exact: true }).fill('1000468813');
     await page.getByLabel('Documento*', { exact: true }).press('Tab');
+
+    // # Confirmar el documento 
     await page.getByLabel('Verifique\n\t\t\t\t\t\tel documento*').fill('1000468813');
+
+    // # Seleccionar fecha de expedicion del documento
     await page.locator('#fechaExpDocumento').click();
-    await page.getByRole('link', { name: '21' }).click();
+    await page.getByRole('link', { name: '1', exact: true }).click();
+
+    // # Llenar correo electronico
     await page.getByLabel('Correo electrónico*', { exact: true }).click();
     await page.getByLabel('Correo electrónico*', { exact: true }).fill('omar@a.com');
+
+    // # Confirmar correo electronico
     await page.getByLabel('Confirme el correo electrónico*').click();
     await page.getByLabel('Confirme el correo electrónico*').fill('omar@a.com');
-    page.once('dialog', dialog => {
-        console.log(`Dialog message: ${dialog.message()}`);
-        dialog.dismiss().catch(() => {});
-    });
-    setTimeout(async () => {
-        await page.getByRole('button', { name: 'Ingresar' }).click();
-    }, 1000);
 
-    //await page.locator('#numeroCorrecto').click();
-    await page.waitForSelector('#numeroCorrecto', { state: 'attached' });
-    const text = await page.locator('#numeroCorrecto').innerText();
-    await page.getByText('112915').click();
-    await page.getByLabel('Número de verificación:*').click();
-    await page.getByLabel('Número de verificación:*').fill(text);
-    await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByText('Pago en Banco Popular').click();
-    // await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByLabel('Ingrese\n\t\t\t\t\t\tnuevamente su PIN *').click();
-    // await page.getByLabel('Ingrese\n\t\t\t\t\t\tnuevamente su PIN *').click();
-    // await page.getByLabel('Ingrese\n\t\t\t\t\t\tnuevamente su PIN *').fill('PRU77');
-    // await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByRole('button', { name: 'Aceptar' }).click();
-    // await page.getByRole('button', { name: 'Acepto', exact: true }).click();
-    // await page.getByText('Regular', { exact: true }).click();
-    // await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByText('Bogotá.').click();
-    // await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByLabel('Departamento de residencia *').selectOption('11');
-    // await page.getByLabel('Ciudad de residencia *').selectOption('5');
-    // await page.getByLabel('País *').selectOption('170');
-    // await page.getByLabel('Ciudad de presentación *').selectOption('109735');
-    // await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByLabel('País\n\t\t\t\t\tde expedición del documento *').selectOption('41');
-    // await page.getByLabel('Departamento\n\t\t\t\t\tde expedición *').selectOption('11');
-    // await page.getByLabel('Ciudad de expedición del documento*').selectOption('5');
-    // await page.getByLabel('Primer nombre *').click();
-    // await page.getByLabel('Primer nombre *').fill('');
-    // await page.getByLabel('Primer nombre *').press('CapsLock');
-    // await page.getByLabel('Primer nombre *').fill('Omar');
-    // await page.getByLabel('Primer nombre *').press('Tab');
-    // await page.getByLabel('Segundo nombre:').press('Tab');
-    // await page.getByLabel('Primer apellido *').fill('Sarmiento');
-    // await page.getByLabel('Código ICFES del colegio donde terminó o terminará el\n\t\t\t\t\tbachillerato *').click();
-    // await page.getByLabel('Código ICFES del colegio donde terminó o terminará el\n\t\t\t\t\tbachillerato *').fill('555555');
-    // await page.getByLabel('Sexo *').selectOption('M');
-    // await page.getByLabel('Estado Civil *').selectOption('5');
-    // await page.locator('#datosProcedencia_fechaNacimientoanio').selectOption('2013');
-    // await page.locator('#datosProcedencia_fechaNacimientomes').selectOption('01');
-    // await page.locator('#datosProcedencia_fechaNacimientodia').selectOption('01');
-    // await page.locator('#datosProcedencia_fechaNacimientoConfirmaranio').selectOption('2013');
-    // await page.locator('#datosProcedencia_fechaNacimientoConfirmarmes').selectOption('01');
-    // await page.locator('#datosProcedencia_fechaNacimientoConfirmardia').selectOption('01');
-    // await page.getByLabel('País\n\t\t\t\t\tque corresponde a su nacionalidad *').selectOption('41');
-    // await page.locator('#listaPaisesNacimiento').selectOption('41');
-    // await page.getByLabel('Departamento\n\t\t\t\t\tde nacimiento *').selectOption('11');
-    // await page.getByLabel('Ciudad de nacimiento *').selectOption('5');
-    // await page.getByLabel('Dirección *').click();
-    // await page.getByRole('cell', { name: 'Apartamento' }).click();
-    // await page.getByRole('cell', { name: 'Norte' }).click();
-    // await page.getByRole('button', { name: 'Guardar direccion' }).click();
-    // await page.getByLabel('Localidad*').selectOption('1');
-    // await page.getByLabel('Estrato*').selectOption('0');
-    // await page.getByLabel('Celular\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t*').click();
-    // await page.getByLabel('Celular\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t*').fill('3193106140');
-    // await page.locator('#datosAcademicos_anoTerminacionanio').selectOption('2023');
-    // await page.locator('#datosAcademicos_anoTerminacionmes').selectOption('01');
-    // await page.locator('#datosAcademicos_anoTerminacionConfirmaranio').selectOption('2023');
-    // await page.locator('#datosAcademicos_anoTerminacionConfirmarmes').selectOption('01');
-    // await page.getByLabel('¿Actualmente\n\t\t\t\t\tposee Título Universitario?').selectOption('false');
-    // await page.getByLabel('Entidad\n\t\t\t\t\tPrestadora de Salud (EPS) *').selectOption('23');
-    // await page.getByLabel('Medio por el cual se enteró de la convocatoria *').selectOption('Redes Sociales');
-    // await page.getByLabel('¿Qué red social utiliza con más frecuencia?*').selectOption('7');
-    // await page.getByText('Ninguna.').click();
-    // await page.getByLabel('¿Usted\n\t\t\t\t\tes estudiante activo de la Universidad Nacional? *').selectOption('false');
-    // await page.getByLabel('¿Usted\n\t\t\t\t\tha sido estudiante de la Universidad Nacional? *').selectOption('false');
-    // await page.getByLabel('Seleccione el grupo étnico al que pertenece *').selectOption('4');
-    // await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByRole('button', { name: 'Omitir' }).click();
-    // await page.getByLabel('Seleccione el programa curricular que le gustaría estudiar *').selectOption('0116600');
-    // await page.getByRole('button', { name: 'Siguiente' }).click();
-    // await page.getByRole('button', { name: 'Consultar Comprobante de Inscripción' }).click();
-    // await page.getByRole('button', { name: 'Guardar encuesta' }).click();
+    // # Click en el boton ingresar
+    page.once('dialog', async dialog => {
+        console.log(`Dialog message: ${dialog.message()}`);
+        await dialog.accept();
+    });
+    
+    await page.getByRole('button', { name: 'Ingresar' }).click();
+    
+    // *-------------------------------------------------------------------* //
+    // LLENANDO LA SEGUNDA PARTE DEL FORMULARIO
+    
 });
