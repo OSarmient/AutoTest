@@ -9,38 +9,49 @@ test('fill the form 84.48', async ({ page }) => {
       
     let cedula = generarCedula();
       
+
+    // *-------------------------------------------------------------------* //
+    // ENTRNAOD A LA PAGINA DEL FORMULARIO Y LLENANDO LA PRIMERA PAERTE
     await page.goto('https://168.176.84.48/sitio/accederServicio/acceder.action?periodo=105&servicio=357');
+
+    // # Seleccion del radio select
     await expect(page).toHaveTitle(/Dirección Nacional de Admisiones/);
     await page.getByLabel('', { exact: true }).check();
+
+    // # Eleguir tipo de documento
     await page.getByLabel('Tipo\n\t\t\t\t\t\tde documento*').selectOption('1');
+
+    // # Llenar el documento
     await page.getByLabel('Documento*', { exact: true }).click();
     await page.getByLabel('Documento*', { exact: true }).fill(cedula);
     await page.getByLabel('Documento*', { exact: true }).press('Tab');
+
+    // # Confirmar el documento 
+    await page.getByLabel('Verifique\n\t\t\t\t\t\tel documento*').fill('1000468813');
+
+    // # Seleccionar fecha de expedicion del documento
     await page.getByLabel('Verifique\n\t\t\t\t\t\tel documento*').fill(cedula);
     await page.locator('#fechaExpDocumento').click();
-    await page.getByRole('link', { name: '21' }).click();
+    await page.getByRole('link', { name: '1', exact: true }).click();
+
+    // # Llenar correo electronico
     await page.getByLabel('Correo electrónico*', { exact: true }).click();
+    await page.getByLabel('Correo electrónico*', { exact: true }).fill('omar@a.com');
+
+    // # Confirmar correo electronico
     await page.getByLabel('Correo electrónico*', { exact: true }).fill('a@a.com');
     await page.getByLabel('Confirme el correo electrónico*').click();
     await page.getByLabel('Confirme el correo electrónico*').fill('a@a.com');
-    await page.locator('#botonIngresar').click();
+
+    // # Click en el boton ingresar
+    page.once('dialog', async dialog => {
+        console.log(`Dialog message: ${dialog.message()}`);
+        await dialog.accept();
+    });
     
-    //await page.goto('https://168.176.84.48/sitio/web/pregrado?execution=e1s2');
-    //await page.getByLabel('', { exact: true }).check();
-    //await page.goto('https://168.176.84.48/sitio/web/pregrado?execution=e1s2');
-    //page.on('dialog',  dialog => { dialog.accept(); });
-    //     console.log(`Dialog message: ${dialog.message()}`);
-    //     dialog.dismiss().catch(() => {});
-    // });
-    // setTimeout(async () => {
-    //     await page.getByRole('button', { name: 'Ingresar' }).click();
-    // }, 1500);
-    // await page.getByRole('heading', { name: 'Verificación de correo' });
-    // setTimeout(async () => {
-    //     await page.getByRole('heading', { name: 'Verificación de correo' });
-        // await page.getByLabel('Número de verificación:*').click();
-    // }, 1500);
+    await page.getByRole('button', { name: 'Ingresar' }).click();
     
-    //await expect(page.getByRole('heading', { name: 'Verificación de correo' }).textContent()).toBe('Verificación de correo');
-    //await expect(page)
+    // *-------------------------------------------------------------------* //
+    // LLENANDO LA SEGUNDA PARTE DEL FORMULARIO
+    
 });
